@@ -24,18 +24,7 @@ jobs:
 
     - name: Build
       run: go build -o mcserver
-
-    - name: Debug SSH
-      env:
-        PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-        HOST: ${{ secrets.EC2_HOST }}
-        USER: ${{ secrets.EC2_USER }}
-      run: |
-        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-        echo "Debugging SSH connection..."
-        ssh -v -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} 'echo "SSH connection successful"'
-        echo "exiting debug ssh"
-
+      
     - name: Deploy to EC2
       env:
         PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
