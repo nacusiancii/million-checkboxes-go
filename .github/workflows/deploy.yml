@@ -31,6 +31,8 @@ jobs:
         HOST: ${{ secrets.EC2_HOST }}
         USER: ${{ secrets.EC2_USER }}
       run: |
+        echo "$HOST"
+        echo "USER"
         echo "$PRIVATE_KEY" > key.pem
         chmod 600 key.pem
 
