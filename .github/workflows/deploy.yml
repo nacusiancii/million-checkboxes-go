@@ -31,8 +31,8 @@ jobs:
         HOST: ${{ secrets.EC2_HOST }}
         USER: ${{ secrets.EC2_USER }}
       run: |
-        echo "$PRIVATE_KEY" > key.pem
-        chmod 600 key.pem
+        echo "$PRIVATE_KEY" > private_key
+        chmod 600 private_key
         ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
           echo "Stopping existing server..."
           pkill mcserver || true
