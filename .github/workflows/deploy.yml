@@ -31,19 +31,8 @@ jobs:
         HOST: ${{ secrets.EC2_HOST }}
         USER: ${{ secrets.EC2_USER }}
       run: |
-        echo "$HOST"
-        echo "USER"
         echo "$PRIVATE_KEY" > key.pem
         chmod 600 key.pem
-
-        # Convert PEM to OpenSSH format
-        ssh-keygen -p -N "" -m ssh2 -f key.pem
-
-        # Rename the converted key
-        mv key.pem private_key
-        chmod 600 private_key
-
-        echo "Key converted and saved as private_key"
         ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
           echo "Stopping existing server..."
           pkill mcserver || true
