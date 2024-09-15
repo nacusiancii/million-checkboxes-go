@@ -33,10 +33,11 @@ jobs:
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
-          # Stop the existing server
+          echo "Stopping existing server..."
           pkill mcserver || true
           # Wait a moment to ensure the process has stopped
           sleep 5
+          echo "Existing server stopped (if it was running)"
         '
         scp -i private_key -o StrictHostKeyChecking=no mcserver ec2-user@${HOST}:~/go/app/
         ssh -i private_key -o StrictHostKeyChecking=no ec2-user@${HOST} '
