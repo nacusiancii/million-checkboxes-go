@@ -32,9 +32,9 @@ jobs:
         USER: ${{ secrets.EC2_USER }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-        scp -i private_key -o StrictHostKeyChecking=no mcserver ec2-user@${HOST}:~/app/
+        scp -i private_key -o StrictHostKeyChecking=no mcserver ec2-user@${HOST}:~/go/app/
         ssh -i private_key -o StrictHostKeyChecking=no ec2-user@${HOST} '
-          cd ~/app
+          cd ~/go/app
           pkill mcserver || true
           nohup ./mcserver > output.log 2>&1 &
         '
