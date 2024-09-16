@@ -20,7 +20,7 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 /*
  * This is a multiline comment
  */
-func handleAreaOfRectangle(w http.responseWriter, *http.Request){
+func handleAreaOfRectangle(w http.responseWriter, r *http.Request){
 	length := 8
 	breadth := 4
 	area := length*breadth
