@@ -20,7 +20,7 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 /*
  * This is a multiline comment
  */
-func handleAreaOfRectangle(w http.responseWriter, r *http.Request){
+func handleAreaOfRectangle(w http.ResponseWriter, r *http.Request){
 	length := 8
 	breadth := 4
 	area := length*breadth
@@ -31,8 +31,7 @@ func handleAreaOfRectangle(w http.responseWriter, r *http.Request){
 	 *%s->string
   	 *%f->float
 	 */
- 	fmt.Printf("Area of Rectangle: %d\n", area)
+ 	fmt.Fprintf(w, "Area of Rectangle: %d\n", area)
 	var isLargeRectangle bool = (area>=200)
-	fmt.Printf("Large Rectangle: %t\n",isLargeRectangle)
-	return area
+	fmt.Fprintf(w, "Large Rectangle: %t\n",isLargeRectangle)
 }
