@@ -6,6 +6,7 @@ import (
     "time"
 	"os"
 	"os/signal"
+	"syscall"
 	"context"
 )
 
@@ -16,6 +17,7 @@ func main() {
     // Register handlers
 	mux.HandleFunc("GET /", handleRoot)
 	mux.HandleFunc("GET /hello/{name}", handleHello)
+	mux.HandleFunc("GET /area", handleAreaOfRectangle)
 
     	// Create a server with some reasonable defaults
 	srv := &http.Server{
@@ -35,13 +37,14 @@ func main() {
 	}()
 
     // Wait for interrupt signal to gracefully shutdown the server
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, os.Interrupt)
-	<-quit
-	log.Println("Server is shutting down...")
+	sigChannel := make(chan os.Signal, 1)
+	signal.Notify(sigChannel, os.Interrupt, syscall.SIGTERM, syscall.SIGQUIT)
+	sig := <-sigChannel
+	log.Println("Server is shutting down. Received signal: %v\n",sig)
 
     // Create a deadline to wait for
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	//defer calls are executed LIFO at end of function
 	defer cancel()
 
 	// Doesn't block if no connections, but will otherwise wait
