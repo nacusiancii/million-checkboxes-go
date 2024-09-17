@@ -17,6 +17,7 @@ func main() {
     // Register handlers
 	mux.HandleFunc("GET /", handleRoot)
 	mux.HandleFunc("GET /hello/{name}", handleHello)
+	mux.HandleFunc("GET /area", handleAreaOfRectangle)
 
     	// Create a server with some reasonable defaults
 	srv := &http.Server{
